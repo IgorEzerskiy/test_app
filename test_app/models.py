@@ -12,6 +12,9 @@ class User(AbstractUser):
     )
     position = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.first_name + ' ' + self.position
+
 
 class Order(models.Model):
     task_id = models.CharField(max_length=8)
@@ -26,3 +29,6 @@ class Order(models.Model):
     def save(self, **kwargs):
         self.task_id = ''.join([str(randint(0, 8)) for number in range(0, 8)])
         super().save(**kwargs)
+
+    def __str__(self):
+        return self.name
