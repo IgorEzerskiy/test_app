@@ -12,6 +12,7 @@
         {% csrf_token %}
         <button class="btn btn-outline-danger" type="submit">Log out</button>
     </form>
+    <p style="color: aliceblue">Користувач: {{ request.user }}</p>
     <div style="margin-top: 15px; width: 1300px; height: auto;">
         {% for message in messages %}
             {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}

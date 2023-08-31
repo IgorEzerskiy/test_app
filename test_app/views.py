@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView, DeleteView
-from test_app.models import User, Order
+from test_app.models import Order
 from django.contrib import messages
 from datetime import datetime
 

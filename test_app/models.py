@@ -1,9 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from random import randint
-
-# Create your models here.
-
 
 class User(AbstractUser):
     probation = models.DecimalField(
@@ -17,7 +13,7 @@ class User(AbstractUser):
 
 
 class Order(models.Model):
-    task_id = models.CharField(max_length=8)
+    task_id = models.UUIDField()
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=550)
     employee = models.ForeignKey(
@@ -25,10 +21,6 @@ class Order(models.Model):
         on_delete=models.CASCADE,
         related_name='orders'
     )
-
-    def save(self, **kwargs):
-        self.task_id = ''.join([str(randint(0, 8)) for number in range(0, 8)])
-        super().save(**kwargs)
 
     def __str__(self):
         return self.name
