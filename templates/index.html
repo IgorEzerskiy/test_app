@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <title>Test task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body style="background-color: #343a40;">
+<main class="container" >
+    <form class="d-flex" method="post" action={% url 'logout' %}>
+        {% csrf_token %}
+        <button class="btn btn-outline-danger" type="submit">Log out</button>
+    </form>
+    <p style="color: aliceblue">Користувач: {{ request.user }}</p>
+    <div style="margin-top: 15px; width: 1300px; height: auto;">
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="w-auto p-3">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Замовлення</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in request.user.orders.all %}
+            <tr>
+                <th scope="row">{{ order.id }}</th>
+                <td>{{ order.name }} - {{ order.task_id }}</td>
+                <td>
+                    <form method="post" action={% url "order_delete" order.id %}>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">Видалити</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>
